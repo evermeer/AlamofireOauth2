@@ -3,7 +3,7 @@ SwiftOAuth2
 
 #Description
 
-A Swift implementation of Oath featuring 
+A Swift implementation of Oauth2 featuring 
 
 - User authentication management via UIViewController
 - Retrieval of access & refresh token
