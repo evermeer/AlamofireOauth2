@@ -11,7 +11,9 @@ A swift implementation of OAuth2 featuring
 
 #Setup
 
-CROAuth2Client relies on the Alamofire library, from the excellent Matt Thompson.
+CROAuth2Client relies on the Alamofire library, from the excellent Matt Thompson 
+(https://github.com/Alamofire/Alamofire)
+
 It is added as a submodule in this repository.
 
 To use correctly CROAuth2Client, please add it as a submodule :
@@ -22,7 +24,7 @@ git submodule add git@github.com:crousselle/SwiftOAuth2.git
 // --recursive to get Alamofire
 git submodule update —recursive
 ```
-
+Please follow instructions at https://github.com/Alamofire/Alamofire to setup Alamofire in your project.
 
 #Usage 
 

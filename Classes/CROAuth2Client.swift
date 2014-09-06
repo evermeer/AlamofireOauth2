@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 let kCROAuth2AccessTokenService: CFStringRef = "CROAuth2AccessToken"
 let kCROAuth2RefreshTokenService: CFStringRef = "CROAuth2RefreshToken"
