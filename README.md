@@ -3,16 +3,15 @@ SwiftOAuth2
 
 #Description
 
-A swift implementation of OAuth2 featuring 
+A Swift implementation of Oath featuring 
 
-- Authentication management via a provided UIViewController
-- Tokens stored in Keychain
-- Token Refresh handling
+- User authentication management via UIViewController
+- Retrieval of access & refresh token
+- Keychain storage for tokens
 
 #Setup
 
-CROAuth2Client relies on the Alamofire library, from the excellent Matt Thompson 
-(https://github.com/Alamofire/Alamofire)
+CROAuth2Client relies on ([Alamofire](https://github.com/Alamofire/Alamofire)), from the excellent ([Mattt](https://github.com/mattt))
 
 It is added as a submodule in this repository.
 
