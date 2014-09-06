@@ -47,3 +47,7 @@ Then simply  query the access token
         })
 ```
 The client will automatically return a valid token from the authentication server, or the keychain.
+
+#Creator 
+Clément Rousselle ([@clemrousselle](https://twitter.com/clemrousselle))
+
