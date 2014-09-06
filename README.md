@@ -11,7 +11,7 @@ A Swift implementation of Oauth2 featuring
 
 #Setup
 
-CROAuth2Client relies on ([Alamofire](https://github.com/Alamofire/Alamofire)), from the excellent ([Mattt](https://github.com/mattt))
+CROAuth2Client relies on [Alamofire](https://github.com/Alamofire/Alamofire), from the excellent [Mattt](https://github.com/mattt)
 
 It is added as a submodule in this repository.
 
@@ -48,5 +48,5 @@ Then simply  query the access token
 The client will automatically return a valid token from the authentication server, or the keychain.
 
 #Creator 
-Clément Rousselle ([@clemrousselle](https://twitter.com/clemrousselle))
+Clément Rousselle [@clemrousselle](https://twitter.com/clemrousselle)
 
