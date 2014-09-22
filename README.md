@@ -16,7 +16,7 @@ To use correctly CROAuth2Client, please add it as a submodule :
 git subomdule init 
 git submodule add git@github.com:crousselle/SwiftOAuth2.git 
 // --recursive to get Alamofire
-git submodule update —recursive
+git submodule update --init --recursive
 ```
 - Update ```CRCredentialsHelper``` with your values 
 
