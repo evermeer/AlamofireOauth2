@@ -13,7 +13,7 @@ To use correctly CROAuth2Client, please add it as a submodule :
 
 - Import the library :
 ```
-git subomdule init 
+git submodule init 
 git submodule add git@github.com:crousselle/SwiftOAuth2.git 
 // --recursive to get Alamofire
 git submodule update --init --recursive
