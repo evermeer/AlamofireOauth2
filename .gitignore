@@ -6,3 +6,7 @@
 #
 # Pods/
 
+
+*.xcuserstate
+Pods/*
+AlamofireOauth2.xcworkspace/*

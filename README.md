@@ -3,7 +3,7 @@
 A Swift implementation of OAuth2 for iOS using Alamofire.
 
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/AlamofireOauth2.svg?style=flat)](https://github.com/evermeer/AlamofireOauth2/issues)
-[![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/AlamofireOauth2/stargazers)
+[![Stars](https://img.shields.io/github/stars/evermeer/AlamofireOauth2.svg?style=flat)](https://github.com/evermeer/AlamofireOauth2/stargazers)
 [![Version](https://img.shields.io/cocoapods/v/AlamofireOauth2.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
 [![License](https://img.shields.io/cocoapods/l/AlamofireOauth2.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireOauth2)
 [![Platform](https://img.shields.io/cocoapods/p/AlamofireOauth2.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireOauth2)
