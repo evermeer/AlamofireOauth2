@@ -10,3 +10,5 @@
 *.xcuserstate
 Pods/*
 AlamofireOauth2.xcworkspace/*
+
+*.xcuserstate
