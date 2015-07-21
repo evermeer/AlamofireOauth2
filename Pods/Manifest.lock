@@ -1,0 +1,13 @@
+PODS:
+  - Alamofire (1.2.3)
+  - KeychainAccess (1.2.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - KeychainAccess
+
+SPEC CHECKSUMS:
+  Alamofire: 5550bf0b575ed1a4bf9be572f9463e1015cc169e
+  KeychainAccess: 3d7922baf90762a976adb7f6030d74c1a4110a1d
+
+COCOAPODS: 0.37.2

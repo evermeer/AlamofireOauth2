@@ -1,49 +1,123 @@
-SwiftOAuth2
-===========
+#AlamofireOauth2
 
-A Swift implementation of OAuth2 for iOS.
+A Swift implementation of OAuth2 for iOS using Alamofire.
 
-#Setup
+[![Issues](https://img.shields.io/github/issues-raw/evermeer/AlamofireOauth2.svg?style=flat)](https://github.com/evermeer/AlamofireOauth2/issues)
+[![Stars](https://img.shields.io/github/stars/evermeer/EVReflection.svg?style=flat)](https://github.com/evermeer/AlamofireOauth2/stargazers)
+[![Version](https://img.shields.io/cocoapods/v/AlamofireOauth2.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
+[![License](https://img.shields.io/cocoapods/l/AlamofireOauth2.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireOauth2)
+[![Platform](https://img.shields.io/cocoapods/p/AlamofireOauth2.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireOauth2)
+[![Documentation](https://img.shields.io/badge/documented-100%-brightgreen.svg?style=flat)](http://cocoadocs.org/docsets/AlamofireOauth2)
 
-CROAuth2Client relies on [Alamofire](https://github.com/Alamofire/Alamofire), from the excellent [Mattt](https://github.com/mattt)
+[![Git](https://img.shields.io/badge/GitHub-evermeer-blue.svg?style=flat)](https://github.com/evermeer)
+[![Twitter](https://img.shields.io/badge/twitter-@evermeer-blue.svg?style=flat)](http://twitter.com/evermeer)
+[![LinkedIn](https://img.shields.io/badge/linkedin-Edwin Vermeer-blue.svg?style=flat)](http://nl.linkedin.com/in/evermeer/en)
+[![Website](https://img.shields.io/badge/website-evict.nl-blue.svg?style=flat)](http://evict.nl)
+[![eMail](https://img.shields.io/badge/email-edwin@evict.nl-blue.svg?style=flat)](mailto:edwin@evict.nl?SUBJECT=About EVReflection)
 
-It is added as a submodule in this repository.
 
-To use correctly CROAuth2Client, please add it as a submodule :
+#Intro
 
-- Import the library :
+This is a fork of the [SwiftOAuth2 repository from crousselle](https://github.com/crousselle/SwiftOAuth2)
+
+AlamofireOauth2 relies on [Alamofire](https://github.com/Alamofire/Alamofire), and [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess)
+
+
+## Using AlamofireOauth2 in your own App 
+
+'AlamofireOauth2' is now available through the dependency manager [CocoaPods](http://cocoapods.org). 
+You do have to use cocoapods version 0.36. At this moment this can be installed by executing:
+
 ```
-git submodule init 
-git submodule add git@github.com:crousselle/SwiftOAuth2.git 
-// --recursive to get Alamofire
-git submodule update --init --recursive
-```
-- Update ```CRCredentialsHelper``` with your values 
-
-Please follow instructions at https://github.com/Alamofire/Alamofire to setup Alamofire in your project.
-
-#Usage 
-
-You first need to create a CROAuth2Client object via the following method :
-
-```swift
-// From a UIViewController (used to present the authentication webview if necessary)
-CROAuth2Client.clientWithPresentingController(self)
+[sudo] gem install cocoapods
 ```
 
-Then simply  query the access token 
+If you have installed cocoapods version 0.36 or later, then you can just add EVCloudKitDao to your workspace by adding the folowing 2 lines to your Podfile:
 
-```swift
- self.client!.retrieveAuthToken({ (authToken) -> Void in
-            
-            if let optionnalAuthToken = authToken {
-                println("Received access token " + optionnalAuthToken)
+```
+use_frameworks!
+pod "AlamofireOauth2"
+pod 'AlamofireOauth2', :git => 'https://github.com/evermeer/AlamofireOauth2.git'
+```
+
+Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
+
+```
+import AlamofireOauth2
+```
+
+If you want support for older versions than iOS 8.0, then you can also just copy the AlamofireOauth2 folder containing the 4 classes to your app. besides that you also have to embed the [Alamofire](https://github.com/Alamofire/Alamofire), and [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess) libraries
+
+
+## Building the AlamofireOaut2Test demo
+
+1) Clone the repo to a working directory
+
+2) [CocoaPods](http://cocoapods.org) is used to manage dependencies. Pods are setup easily and are distributed via a ruby gem. Follow the simple instructions on the website to setup. After setup, run the following command from the toplevel directory of AlamofireOauth to download the dependencies for AlamofireOauth:
+
+```sh
+pod install
+```
+
+3) Open the `AlamofireOauth.xcworkspace` in Xcode and.
+
+4) Create your own clientID and clientSecret at https://developer.wordpress.com/docs/oauth2/ 
+
+5) set the clientID and clientSecret in the wordpressOauth2Settings object in the ViewController
+
+and you are ready to go!
+
+## How to use the AlamofireOauth
+Below is the sample code for a simple call to the WorPress API while authenticating using OAuth2
+
+
+```
+class ViewController: UIViewController {
+
+    @IBOutlet weak var result: UITextView!
+
+    @IBAction func startWordpressOauth2Test(sender: AnyObject) {
+        self.result.text = ""
+        UsingOauth2(wordpressOauth2Settings, self, { token in
+            WordPressRequestConvertible.OAuthToken = token
+            Alamofire.request(WordPressRequestConvertible.Me())
+                .responseJSON { (request, response, json, error ) -> Void in
+                self.result.text = "\(json)"
+                println("JSON = \(json)")
             }
-            
+        }, {
+            println("Oauth2 failed")
         })
+    }
+}
+
+// Create your own clientID and clientSecret at https://developer.wordpress.com/docs/oauth2/
+let wordpressOauth2Settings = Oauth2Settings(
+    baseURL: "https://public-api.wordpress.com/rest/v1",
+    authorizeURL: "https://public-api.wordpress.com/oauth2/authorize",
+    tokenURL: "https://public-api.wordpress.com/oauth2/token",
+    redirectURL: "alamofireoauth2://wordpress/oauth_callback",
+    clientID: "????????????",
+    clientSecret: "????????????"
+)
+
+// Minimal Alamofire implementation. For more info see https://github.com/Alamofire/Alamofire#crud--authorization
+public enum WordPressRequestConvertible: URLRequestConvertible {
+    static var baseURLString: String? = wordpressOauth2Settings.baseURL
+    static var OAuthToken: String?
+
+    case Me()
+
+    public var URLRequest: NSURLRequest {
+        let URL = NSURL(string: WordPressRequestConvertible.baseURLString!)!
+        let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent("/me"))
+        mutableURLRequest.HTTPMethod = "GET"
+
+        if let token = WordPressRequestConvertible.OAuthToken {
+            mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        return mutableURLRequest
+    }
+}
 ```
-The client will automatically return a valid token from the authentication server, or the keychain.
-
-#Creator 
-Clément Rousselle [@clemrousselle](https://twitter.com/clemrousselle)
-

@@ -1,15 +1,8 @@
-//
-//  AuthenticationViewController.swift
-//  GetThere
-//
-//  Created by Clement Rousselle on 8/25/14.
-//  Copyright (c) 2014 Clement Rousselle. All rights reserved.
-//
 
 import Foundation
 import UIKit
 
-class CRAuthenticationViewController : UIViewController, UIWebViewDelegate{
+class AuthenticationViewController : UIViewController, UIWebViewDelegate{
 
     let expectedState:String = "authDone"
     
@@ -19,6 +12,8 @@ class CRAuthenticationViewController : UIViewController, UIWebViewDelegate{
     var failureCallback : ((error:NSError) -> Void)?
 
     var isRetrievingAuthCode : Bool? = false
+
+    var oauth2Settings:Oauth2Settings!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,10 +23,10 @@ class CRAuthenticationViewController : UIViewController, UIWebViewDelegate{
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    init(successCallback:((code:String)-> Void), failureCallback:((error:NSError) -> Void)) {
+    init(oauth2Settings: Oauth2Settings, successCallback:((code:String)-> Void), failureCallback:((error:NSError) -> Void)) {
+        super.init(nibName: nil, bundle: nil)
         
-        super.init()
-        
+        self.oauth2Settings = oauth2Settings
         self.successCallback = successCallback
         self.failureCallback = failureCallback
     }
@@ -53,15 +48,15 @@ class CRAuthenticationViewController : UIViewController, UIWebViewDelegate{
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: Selector("cancelAction"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelAction"))
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         // TO alter if more parameters neede
-        var url:String! = CROAuth2Client.authorizeURL() + "?response_type=code&client_id=" + CROAuth2Client.clientID() + "&state=" + expectedState + "&redirect_uri=" + CROAuth2Client.redirectURI().stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!
-        let urlRequest : NSURLRequest = NSURLRequest(URL: NSURL(string: url))
+        var url:String! = self.oauth2Settings.authorizeURL + "?response_type=code&client_id=" + self.oauth2Settings.clientID + "&state=" + expectedState + "&redirect_uri=" + self.oauth2Settings.redirectURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())! + "&scope=" + self.oauth2Settings.scope
+        let urlRequest : NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
         
         self.webView!.loadRequest(urlRequest)
     }
@@ -72,11 +67,11 @@ class CRAuthenticationViewController : UIViewController, UIWebViewDelegate{
     }
     
     
-    func webView(webView: UIWebView!, shouldStartLoadWithRequest request: NSURLRequest!, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
-        let url : NSString = request.URL.absoluteString!
+        let url : NSString = request.URL!.absoluteString!
         
-        self.isRetrievingAuthCode = url.hasPrefix(CROAuth2Client.redirectURI())
+        self.isRetrievingAuthCode = url.hasPrefix(self.oauth2Settings.redirectURL)
         
         if (self.isRetrievingAuthCode!) {
             if(url.rangeOfString("error").location != NSNotFound) {
@@ -102,7 +97,7 @@ class CRAuthenticationViewController : UIViewController, UIWebViewDelegate{
             
     }
     
-    func webView(webView: UIWebView!, didFailLoadWithError error: NSError!) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
         if (!self.isRetrievingAuthCode!) {
             self.failureCallback!(error: error)
         }
@@ -121,12 +116,12 @@ class CRAuthenticationViewController : UIViewController, UIWebViewDelegate{
             for param in urlString.componentsSeparatedByString("&") {
                 var array = Array <AnyObject>()
                 array = param.componentsSeparatedByString("=")
-                let name:String = array[0] as String
-                let value:String = array[1] as String
+                let name:String = array[0] as! String
+                let value:String = array[1] as! String
                 
                 dict[name] = value
             }
-            if let result = dict[parameterName] {
+            if let result = dict[parameterName as String] {
                 return result
             }
         }

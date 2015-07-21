@@ -1,0 +1,6 @@
+framework module KeychainAccess {
+  umbrella header "Pods-KeychainAccess-umbrella.h"
+
+  export *
+  module * { export * }
+}
