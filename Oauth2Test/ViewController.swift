@@ -84,7 +84,7 @@ let googleOauth2Settings = Oauth2Settings(
     authorizeURL: "https://accounts.google.com/o/oauth2/auth",
     tokenURL: "https://www.googleapis.com/oauth2/v3/token",
     redirectURL: "http://localhost",
-    clientID: "????????????",
+    clientID: "???????????????",
     clientSecret: "",
     scope: "profile"
 )

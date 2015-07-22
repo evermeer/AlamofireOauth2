@@ -18,16 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         return true
     }
-
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        if (url.host == "wordpress") {
-            if (url.path!.hasPrefix("/oauth_callback")){
-                
-            }
-        }
-        return true
-    }
-    
     
     
     func applicationWillResignActive(application: UIApplication) {
