@@ -76,7 +76,7 @@ public enum WordPressRequestConvertible: URLRequestConvertible {
 
 
 
-// Create your own clientID and Secret at https://console.developers.google.com/project
+// Create your own clientID at https://console.developers.google.com/project (secret can be left blank!)
 // For more info see https://developers.google.com/identity/protocols/OAuth2WebServer#handlingtheresponse
 // And https://developers.google.com/+/web/api/rest/oauth
 let googleOauth2Settings = Oauth2Settings(
@@ -85,7 +85,7 @@ let googleOauth2Settings = Oauth2Settings(
     tokenURL: "https://www.googleapis.com/oauth2/v3/token",
     redirectURL: "http://localhost",
     clientID: "????????????",
-    clientSecret: "????????????",
+    clientSecret: "",
     scope: "profile"
 )
 
@@ -97,11 +97,11 @@ public enum GoogleRequestConvertible: URLRequestConvertible {
     case Me()
     
     public var URLRequest: NSURLRequest {
-        let URL = NSURL(string: WordPressRequestConvertible.baseURLString!)!
+        let URL = NSURL(string: GoogleRequestConvertible.baseURLString!)!
         let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent("/people/me"))
         mutableURLRequest.HTTPMethod = "GET"
         
-        if let token = WordPressRequestConvertible.OAuthToken {
+        if let token = GoogleRequestConvertible.OAuthToken {
             mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
