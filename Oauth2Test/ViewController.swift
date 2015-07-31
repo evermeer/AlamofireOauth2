@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     @IBAction func startWordpressOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(wordpressOauth2Settings, self, { token in
+        UsingOauth2(wordpressOauth2Settings, { token in
             WordPressRequestConvertible.OAuthToken = token
             Alamofire.request(WordPressRequestConvertible.Me())
                 .responseJSON { (request, response, json, error ) -> Void in
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
 
     @IBAction func startGoogleOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(googleOauth2Settings, self, { token in
+        UsingOauth2(googleOauth2Settings, { token in
             GoogleRequestConvertible.OAuthToken = token
             Alamofire.request(GoogleRequestConvertible.Me())
                 .responseJSON { (request, response, json, error ) -> Void in

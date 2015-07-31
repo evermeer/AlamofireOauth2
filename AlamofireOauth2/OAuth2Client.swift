@@ -12,12 +12,11 @@ let kOAuth2CreationDateService: String = "OAuth2CreationDate"
 class OAuth2Client : NSObject {
     
     var oauth2Settings:Oauth2Settings
-    var sourceViewController:UIViewController
+    var sourceViewController:UIViewController?
     let keychain:  Keychain
     
-    init(outh2Settings: Oauth2Settings, controller: UIViewController) {
+    init(outh2Settings: Oauth2Settings) {
         self.oauth2Settings = outh2Settings
-        self.sourceViewController = controller
         self.keychain = Keychain(service: outh2Settings.baseURL)
     }
     
@@ -73,24 +72,36 @@ class OAuth2Client : NSObject {
     
     // MARK: - Private helper methods
     
+    var activeController: UIViewController {
+        get {
+            if self.sourceViewController == nil {
+                self.sourceViewController = UIApplication.topViewController()
+            }
+            if self.sourceViewController != nil {
+                return self.sourceViewController!
+            }
+            println("WARNING: You should have an active UIViewController! ")
+            return UIViewController()
+        }
+    }
 
     // Retrieves the autorization code by presenting a webView that will let the user login
     private func retrieveAuthorizationCode(authoCode:((authorizationCode:String?) -> Void)) -> Void{
         
         func success(code:String) -> Void {
-            self.sourceViewController.dismissViewControllerAnimated(true, completion: nil)
+            activeController.dismissViewControllerAnimated(true, completion: nil)
             authoCode(authorizationCode:code)
         }
         
         func failure(error:NSError) -> Void {
-            self.sourceViewController.dismissViewControllerAnimated(true, completion: nil)
+            activeController.dismissViewControllerAnimated(true, completion: nil)
             authoCode(authorizationCode:nil)
         }
         
         var authenticationViewController:AuthenticationViewController = AuthenticationViewController(oauth2Settings: oauth2Settings, successCallback:success, failureCallback:failure)
         var navigationController:UINavigationController = UINavigationController(rootViewController: authenticationViewController)
         
-        self.sourceViewController.presentViewController(navigationController, animated:true, completion:nil)
+        activeController.presentViewController(navigationController, animated:true, completion:nil)
     }
     
     
@@ -191,3 +202,27 @@ class OAuth2Client : NSObject {
 
 }
 
+extension UIApplication {
+    class func topViewController(base: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
+        
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
+        }
+        
+        if let tab = base as? UITabBarController {
+            let moreNavigationController = tab.moreNavigationController
+            
+            if let top = moreNavigationController.topViewController where top.view.window != nil {
+                return topViewController(base: top)
+            } else if let selected = tab.selectedViewController {
+                return topViewController(base: selected)
+            }
+        }
+        
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        
+        return base
+    }
+}
