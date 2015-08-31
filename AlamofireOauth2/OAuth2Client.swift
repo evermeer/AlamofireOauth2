@@ -20,9 +20,9 @@ class OAuth2Client : NSObject {
         self.keychain = Keychain(service: outh2Settings.baseURL)
     }
     
-    private func postRequestHandler(jsonResponse:AnyObject?, error:NSError?, token:((accessToken:String?) -> Void)) -> Void {  
+    private func postRequestHandler(jsonResponse:AnyObject?, error:ErrorType?, token:((accessToken:String?) -> Void)) -> Void {
         if let err = error {
-            println(error)
+            print(err)
             token(accessToken: nil)
         } else {
             let accessToken:String = self.retrieveAccessTokenFromJSONResponse(jsonResponse!)
@@ -39,7 +39,7 @@ class OAuth2Client : NSObject {
                     self.refreshToken(refreshToken, newToken: token)
                     return
                 }
-                println("WARNING: Access token is expired but no refresh token in keychain!")
+                print("WARNING: Access token is expired but no refresh token in keychain!")
             } else {
                 token(accessToken: optionalStoredAccessToken)
                 return
@@ -62,8 +62,8 @@ class OAuth2Client : NSObject {
                     url, 
                     parameters: parameters,
                     encoding: Alamofire.ParameterEncoding.URL)
-                    .responseJSON { (request, response, json, error ) -> Void in   
-                        self.postRequestHandler(json, error: error, token: token) 
+                    .responseJSON { (request, response, result ) -> Void in
+                        self.postRequestHandler(result.value, error: result.error, token: token)
                 }
             }
         }
@@ -80,7 +80,7 @@ class OAuth2Client : NSObject {
             if self.sourceViewController != nil {
                 return self.sourceViewController!
             }
-            println("WARNING: You should have an active UIViewController! ")
+            print("WARNING: You should have an active UIViewController! ")
             return UIViewController()
         }
     }
@@ -98,8 +98,8 @@ class OAuth2Client : NSObject {
             authoCode(authorizationCode:nil)
         }
         
-        var authenticationViewController:AuthenticationViewController = AuthenticationViewController(oauth2Settings: oauth2Settings, successCallback:success, failureCallback:failure)
-        var navigationController:UINavigationController = UINavigationController(rootViewController: authenticationViewController)
+        let authenticationViewController:AuthenticationViewController = AuthenticationViewController(oauth2Settings: oauth2Settings, successCallback:success, failureCallback:failure)
+        let navigationController:UINavigationController = UINavigationController(rootViewController: authenticationViewController)
         
         activeController.presentViewController(navigationController, animated:true, completion:nil)
     }
@@ -142,7 +142,7 @@ class OAuth2Client : NSObject {
     // Request a new access token with our refresh token
     func refreshToken(refreshToken:String, newToken:((accessToken:String?) -> Void)) -> Void {
         
-        println("Need to refresh the token with refreshToken : " + refreshToken)
+        print("Need to refresh the token with refreshToken : " + refreshToken)
         
         let url:String = self.oauth2Settings.tokenURL
             
@@ -156,8 +156,8 @@ class OAuth2Client : NSObject {
             url, 
             parameters: parameters,
             encoding: Alamofire.ParameterEncoding.URL)
-            .responseJSON { (request, response, json, error ) -> Void in
-                self.postRequestHandler(json, error: error, token: newToken) 
+            .responseJSON { (request, response, result ) -> Void in
+                self.postRequestHandler(result.value, error: result.error, token: newToken)
         }
     }
     
@@ -170,7 +170,7 @@ class OAuth2Client : NSObject {
             
             if let error : NSString = jsonResult["error"] as? NSString {
                 if let error_description : NSString = jsonResult["error_description"] as? NSString {
-                    println("error: \(error) - \(error_description)")
+                    print("error: \(error) - \(error_description)")
                     return result
                 }
             }
@@ -188,8 +188,7 @@ class OAuth2Client : NSObject {
                 keychain[kOAuth2RefreshTokenService] = refreshToken as String
             }
             if let expiresIn = optionalExpiresIn {
-                let string:NSString = "1"
-                keychain[kOAuth2ExpiresInService] = string as String
+                keychain[kOAuth2ExpiresInService] = expiresIn.stringValue as String
             }
             
             let date:NSTimeInterval = NSDate().timeIntervalSince1970
@@ -206,21 +205,21 @@ extension UIApplication {
     class func topViewController(base: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
         
         if let nav = base as? UINavigationController {
-            return topViewController(base: nav.visibleViewController)
+            return topViewController(nav.visibleViewController)
         }
         
         if let tab = base as? UITabBarController {
             let moreNavigationController = tab.moreNavigationController
             
             if let top = moreNavigationController.topViewController where top.view.window != nil {
-                return topViewController(base: top)
+                return topViewController(top)
             } else if let selected = tab.selectedViewController {
-                return topViewController(base: selected)
+                return topViewController(selected)
             }
         }
         
         if let presented = base?.presentedViewController {
-            return topViewController(base: presented)
+            return topViewController(presented)
         }
         
         return base

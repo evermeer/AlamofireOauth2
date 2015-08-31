@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5A2A17E5FEF532A26CC97368 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7F7CFCE61B5E740D00A42318 /* AlamofireOauth2.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AlamofireOauth2.podspec; sourceTree = "<group>"; };
 		7F7CFCE71B5E740D00A42318 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7F7CFCE81B5E740D00A42318 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -36,7 +36,7 @@
 		7FD256C01B5707E600825BF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7FD256C21B5707E600825BF1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7FD256C51B5707E600825BF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9DEF7D3026DF771C0D112878 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EA53326E43518792397CC7FB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F2F299D1B0DB87443E2E306D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -62,8 +62,8 @@
 				7FD256491B545A9D00825BF1 /* AlamofireOauth2 */,
 				7FD256B81B5707E600825BF1 /* Oauth2Test */,
 				7FD256481B545A9D00825BF1 /* Products */,
-				C2835EA35300556C01BF0835 /* Pods */,
 				CF5DEB8B2ED21ECE362ACBBD /* Frameworks */,
+				B3140E192B2E23C13991935A /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,11 +107,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C2835EA35300556C01BF0835 /* Pods */ = {
+		B3140E192B2E23C13991935A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9DEF7D3026DF771C0D112878 /* Pods.debug.xcconfig */,
-				5A2A17E5FEF532A26CC97368 /* Pods.release.xcconfig */,
+				EA53326E43518792397CC7FB /* Pods.debug.xcconfig */,
+				67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -153,8 +153,9 @@
 		7FD2563F1B545A9D00825BF1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = evict;
 				TargetAttributes = {
 					7FD256B61B5707E500825BF1 = {
@@ -298,6 +299,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -362,7 +364,7 @@
 		};
 		7FD256D41B5707E600825BF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DEF7D3026DF771C0D112878 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = EA53326E43518792397CC7FB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -371,17 +373,19 @@
 				);
 				INFOPLIST_FILE = Oauth2Test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		7FD256D51B5707E600825BF1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A2A17E5FEF532A26CC97368 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Oauth2Test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
