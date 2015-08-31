@@ -38,6 +38,8 @@ use_frameworks!
 pod "AlamofireOauth2"
 ```
 
+A Swift 2 version is availabe in the Swift2 branch
+
 Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
 
 ```
