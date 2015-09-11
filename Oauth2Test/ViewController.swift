@@ -15,29 +15,29 @@ class ViewController: UIViewController {
     
     @IBAction func startWordpressOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(wordpressOauth2Settings, { token in
+        UsingOauth2(wordpressOauth2Settings, performWithToken: { token in
             WordPressRequestConvertible.OAuthToken = token
             Alamofire.request(WordPressRequestConvertible.Me())
-                .responseJSON { (request, response, json, error ) -> Void in
-                    self.result.text = "\(json)"
-                    println("JSON = \(json)")
-            }
-        }, {
-            println("Oauth2 failed")
+                .responseJSON(completionHandler: { (request, response, result) -> Void in
+                    self.result.text = "\(result.value)"
+                    print("JSON = \(result.value)")
+                })
+        }, errorHandler: {
+            print("Oauth2 failed")
         })
     }
 
     @IBAction func startGoogleOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(googleOauth2Settings, { token in
+        UsingOauth2(googleOauth2Settings, performWithToken: { token in
             GoogleRequestConvertible.OAuthToken = token
             Alamofire.request(GoogleRequestConvertible.Me())
-                .responseJSON { (request, response, json, error ) -> Void in
-                    self.result.text = "\(json)"
-                    println("JSON = \(json)")
+                .responseJSON { (request, response, result ) -> Void in
+                    self.result.text = "\(result.value)"
+                    print("JSON = \(result.value)")
             }
-        }, {
-            println("Oauth2 failed")
+        }, errorHandler: {
+            print("Oauth2 failed")
         })
     }
 }
@@ -60,7 +60,7 @@ public enum WordPressRequestConvertible: URLRequestConvertible {
     
     case Me()
     
-    public var URLRequest: NSURLRequest {
+    public var URLRequest: NSMutableURLRequest { get {
         let URL = NSURL(string: WordPressRequestConvertible.baseURLString!)!
         let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent("/me"))
         mutableURLRequest.HTTPMethod = "GET"
@@ -70,6 +70,7 @@ public enum WordPressRequestConvertible: URLRequestConvertible {
         }
         
         return mutableURLRequest
+        }
     }
 }
 
@@ -96,15 +97,17 @@ public enum GoogleRequestConvertible: URLRequestConvertible {
     
     case Me()
     
-    public var URLRequest: NSURLRequest {
-        let URL = NSURL(string: GoogleRequestConvertible.baseURLString!)!
-        let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent("/people/me"))
-        mutableURLRequest.HTTPMethod = "GET"
-        
-        if let token = GoogleRequestConvertible.OAuthToken {
-            mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    public var URLRequest: NSMutableURLRequest {
+        get  {
+            let URL = NSURL(string: GoogleRequestConvertible.baseURLString!)!
+            let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent("/people/me"))
+            mutableURLRequest.HTTPMethod = "GET"
+            
+            if let token = GoogleRequestConvertible.OAuthToken {
+                mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            }
+            
+            return mutableURLRequest
         }
-        
-        return mutableURLRequest
     }
 }

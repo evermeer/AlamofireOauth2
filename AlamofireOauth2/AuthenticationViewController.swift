@@ -15,7 +15,7 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
 
     var oauth2Settings:Oauth2Settings!
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -40,10 +40,10 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
         self.webView = UIWebView(frame: self.view.bounds);
         
         if let bindCheck = self.webView {
-            self.webView!.backgroundColor = UIColor.clearColor()
-            self.webView!.scalesPageToFit = true
-            self.webView!.delegate = self
-            self.view.addSubview(self.webView!)
+            bindCheck.backgroundColor = UIColor.clearColor()
+            bindCheck.scalesPageToFit = true
+            bindCheck.delegate = self
+            self.view.addSubview(bindCheck)
         }
         
         self.view.backgroundColor = UIColor.whiteColor()
@@ -55,7 +55,7 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
         super.viewWillAppear(animated)
         
         // TO alter if more parameters neede
-        var url:String! = self.oauth2Settings.authorizeURL + "?response_type=code&client_id=" + self.oauth2Settings.clientID + "&state=" + expectedState + "&redirect_uri=" + self.oauth2Settings.redirectURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())! + "&scope=" + self.oauth2Settings.scope
+        let url:String! = self.oauth2Settings.authorizeURL + "?response_type=code&client_id=" + self.oauth2Settings.clientID + "&state=" + expectedState + "&redirect_uri=" + self.oauth2Settings.redirectURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())! + "&scope=" + self.oauth2Settings.scope
         let urlRequest : NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
         
         self.webView!.loadRequest(urlRequest)
@@ -69,7 +69,7 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
-        let url : NSString = request.URL!.absoluteString!
+        let url : NSString = request.URL!.absoluteString
         
         self.isRetrievingAuthCode = url.hasPrefix(self.oauth2Settings.redirectURL)
         
@@ -97,9 +97,9 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
             
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         if (!self.isRetrievingAuthCode!) {
-            self.failureCallback!(error: error)
+            self.failureCallback!(error: error ?? NSError(domain: "Could not retreive auth code", code: 1, userInfo: nil))
         }
     }
         
@@ -110,7 +110,7 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
             return nil
         }
         
-        if let urlString: String = url.componentsSeparatedByString("?")[1] as? String {
+        if let urlString: String = url.componentsSeparatedByString("?")[1] {
             var dict = Dictionary <String, String>()
             
             for param in urlString.componentsSeparatedByString("&") {
