@@ -2,6 +2,10 @@
 
 A Swift implementation of OAuth2 for iOS using Alamofire.
 
+<!---
+ [![Circle CI](https://img.shields.io/circleci/project/evermeer/AlamofireOauth2.svg?style=flat)](https://circleci.com/gh/evermeer/AlamofireOauth2)
+ -->
+[![Build Status](https://travis-ci.org/evermeer/AlamofireOauth2.svg?style=flat)](https://travis-ci.org/evermeer/AlamofireOauth2)
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/AlamofireOauth2.svg?style=flat)](https://github.com/evermeer/AlamofireOauth2/issues)
 [![Stars](https://img.shields.io/github/stars/evermeer/AlamofireOauth2.svg?style=flat)](https://github.com/evermeer/AlamofireOauth2/stargazers)
 [![Version](https://img.shields.io/cocoapods/v/AlamofireOauth2.svg?style=flat)](http://cocoadocs.org/docsets/EVReflection)
