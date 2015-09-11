@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (2.0.0-beta.3)
+  - Alamofire (2.0.0-beta.4)
   - KeychainAccess (1.2.1)
 
 DEPENDENCIES:
@@ -17,14 +17,14 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Alamofire:
-    :commit: 1bc35abfa7c167ba54af4e87158af7945cc9984e
+    :commit: 1108ae4461baa99d9c4898c213ec3e2e2956fab3
     :git: https://github.com/Alamofire/Alamofire.git
   KeychainAccess:
-    :commit: 7fa95d6abbecc61d173ba8159da82ef766b8c4f3
+    :commit: d1799b703b6b58e2d6ad7becb3cde620a20fcce2
     :git: https://github.com/kishikawakatsumi/KeychainAccess.git
 
 SPEC CHECKSUMS:
-  Alamofire: 39dddb7d3725d1771b1d2f7099c8bd45bd83ffbb
+  Alamofire: 20df1a4740a69d7cf6caf7fd06b8a8fc782f1ebd
   KeychainAccess: 2ffa8b1b7130263bb7fe90b359d778696fc2d8ce
 
 COCOAPODS: 0.38.2
