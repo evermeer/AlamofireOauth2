@@ -82,6 +82,6 @@ s.requires_arc = true
 
 
 s.dependency "Alamofire"
-s.dependency "KeychainAccess"
+s.dependency "KeychainAccess", '~> 1.3'
 
 end
