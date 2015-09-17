@@ -21,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7F0E6DC41BA8452C0071AC65 /* Oauth2Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Oauth2Test.entitlements; sourceTree = "<group>"; };
 		7F159DF81BA2F92400247CB1 /* circle.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = circle.yml; path = ../EVReflection/circle.yml; sourceTree = "<group>"; };
 		7F159DF91BA2F99500247CB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../EVReflection/EVReflection/.gitignore; sourceTree = "<group>"; };
 		7F159DFD1BA3057400247CB1 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		7FD256B81B5707E600825BF1 /* Oauth2Test */ = {
 			isa = PBXGroup;
 			children = (
+				7F0E6DC41BA8452C0071AC65 /* Oauth2Test.entitlements */,
 				7FD256BB1B5707E600825BF1 /* AppDelegate.swift */,
 				7FD256BD1B5707E600825BF1 /* ViewController.swift */,
 				7FD256BF1B5707E600825BF1 /* Main.storyboard */,
@@ -166,6 +168,12 @@
 				TargetAttributes = {
 					7FD256B61B5707E500825BF1 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = JPC3M2UF4R;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -373,6 +381,8 @@
 			baseConfigurationReference = EA53326E43518792397CC7FB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -381,6 +391,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -389,10 +400,13 @@
 			baseConfigurationReference = 67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Oauth2Test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.evict.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

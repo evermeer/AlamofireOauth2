@@ -70,7 +70,7 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
         let url : NSString = request.URL!.absoluteString
-        
+        print("===>>> \(url)")
         self.isRetrievingAuthCode = url.hasPrefix(self.oauth2Settings.redirectURL)
         
         if (self.isRetrievingAuthCode!) {
