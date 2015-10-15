@@ -1,6 +1,7 @@
 
 import Foundation
 import UIKit
+import KeychainAccess
 
 public func UsingOauth2(settings: Oauth2Settings?, performWithToken: (token: String) -> (), errorHandler: () -> () ) {
     if settings == nil {
@@ -21,4 +22,10 @@ public func UsingOauth2(settings: Oauth2Settings?, performWithToken: (token: Str
         errorHandler()
         
     })
+}
+
+public func Oauth2ClearTokensFromKeychain(settings: Oauth2Settings) {
+    let keychain = Keychain(service: settings.baseURL)
+    keychain[kOAuth2AccessTokenService] = nil
+    keychain[kOAuth2RefreshTokenService] = nil
 }

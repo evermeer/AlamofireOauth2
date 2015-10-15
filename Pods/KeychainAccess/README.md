@@ -1,8 +1,9 @@
 # KeychainAccess
 [![CI Status](http://img.shields.io/travis/kishikawakatsumi/KeychainAccess.svg?style=flat)](https://travis-ci.org/kishikawakatsumi/KeychainAccess)
+[![Circle CI](https://circleci.com/gh/kishikawakatsumi/KeychainAccess.svg?style=shield)](https://circleci.com/gh/kishikawakatsumi/KeychainAccess)
+[![Coverage Status](https://coveralls.io/repos/kishikawakatsumi/KeychainAccess/badge.svg?branch=master&service=github)](https://coveralls.io/github/kishikawakatsumi/KeychainAccess?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/KeychainAccess.svg?style=flat)](http://cocoadocs.org/docsets/KeychainAccess)
-[![License](https://img.shields.io/cocoapods/l/KeychainAccess.svg?style=flat)](http://cocoadocs.org/docsets/KeychainAccess)
 [![Platform](https://img.shields.io/cocoapods/p/KeychainAccess.svg?style=flat)](http://cocoadocs.org/docsets/KeychainAccess)
 
 KeychainAccess is a simple Swift wrapper for Keychain that works on iOS and OS X. Makes using Keychain APIs exremely easy and much more palatable to use in Swift.
@@ -20,6 +21,7 @@ KeychainAccess is a simple Swift wrapper for Keychain that works on iOS and OS X
 - **[Support TouchID and Keychain integration (iOS 8+)](#touch_id_integration)**
 - **[Support Shared Web Credentials (iOS 8+)](#shared_web_credentials)**
 - Works on both iOS & OS X
+- watchOS and tvOS are supported
 
 ## :book: Usage
 
@@ -283,6 +285,7 @@ let keychain = Keychain(service: "com.example.github-token")
 
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
     do {
+        // Should be the secret invalidated when passcode is removed? If not then use `.WhenUnlocked`
         try keychain
             .accessibility(.WhenPasscodeSetThisDeviceOnly, authenticationPolicy: .UserPresence)
             .set("01234567-89ab-cdef-0123-456789abcdef", key: "kishikawakatsumi")
@@ -307,6 +310,7 @@ let keychain = Keychain(service: "com.example.github-token")
 
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
     do {
+        // Should be the secret invalidated when passcode is removed? If not then use `.WhenUnlocked`
         try keychain
             .accessibility(.WhenPasscodeSetThisDeviceOnly, authenticationPolicy: .UserPresence)
             .authenticationPrompt("Authenticate to update your access token")
@@ -486,12 +490,12 @@ OS X 10.9 or later
 ### CocoaPods
 
 KeychainAccess is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+it, simply add the following lines to your Podfile:
 
-`pod 'KeychainAccess'`
-
-*Currently, to install the framework via CocoaPods you need to use pre-release version.*  
-See ["Pod Authors Guide to CocoaPods Frameworks"](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/)
+```ruby
+use_frameworks!
+pod 'KeychainAccess'
+```
 
 ### Carthage
 

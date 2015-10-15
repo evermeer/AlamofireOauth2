@@ -1,30 +1,13 @@
 PODS:
-  - Alamofire (2.0.0-beta.4)
-  - KeychainAccess (1.2.1)
+  - Alamofire (3.0.0)
+  - KeychainAccess (2.2.0)
 
 DEPENDENCIES:
-  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
-  - KeychainAccess (from `https://github.com/kishikawakatsumi/KeychainAccess.git`,
-    branch `swift-2.0`)
-
-EXTERNAL SOURCES:
-  Alamofire:
-    :branch: swift-2.0
-    :git: https://github.com/Alamofire/Alamofire.git
-  KeychainAccess:
-    :branch: swift-2.0
-    :git: https://github.com/kishikawakatsumi/KeychainAccess.git
-
-CHECKOUT OPTIONS:
-  Alamofire:
-    :commit: 1108ae4461baa99d9c4898c213ec3e2e2956fab3
-    :git: https://github.com/Alamofire/Alamofire.git
-  KeychainAccess:
-    :commit: d1799b703b6b58e2d6ad7becb3cde620a20fcce2
-    :git: https://github.com/kishikawakatsumi/KeychainAccess.git
+  - Alamofire
+  - KeychainAccess
 
 SPEC CHECKSUMS:
-  Alamofire: 20df1a4740a69d7cf6caf7fd06b8a8fc782f1ebd
-  KeychainAccess: 2ffa8b1b7130263bb7fe90b359d778696fc2d8ce
+  Alamofire: b61782387f81bcc538a0284cf2bb5d7995cd0a80
+  KeychainAccess: c14a391a45bb3efbd63ab9f5a95b5b4e8753a506
 
 COCOAPODS: 0.38.2

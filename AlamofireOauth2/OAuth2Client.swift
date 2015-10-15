@@ -47,7 +47,7 @@ class OAuth2Client : NSObject {
         }
         
         // First, let's retrieve the autorization_code by login the user in.
-        self.retrieveAuthorizationCode { (authorizationCode) -> Void in
+        self.retrieveAuthorizationCode ({ (authorizationCode) -> Void in
             if let optionalAuthCode = authorizationCode {
                 // We have the authorization_code, we now need to exchange it for the accessToken by doind a POST request
                 let url:String = self.oauth2Settings.tokenURL
@@ -62,12 +62,21 @@ class OAuth2Client : NSObject {
                     url, 
                     parameters: parameters,
                     encoding: Alamofire.ParameterEncoding.URL)
-                    .responseJSON { (request, response, result ) -> Void in
-                        self.postRequestHandler(result.value, error: result.error, token: token)
-                }
+                    .responseJSON(completionHandler: { (response) -> Void in
+                        switch response.result {
+                        case .Success(let json):
+                            self.postRequestHandler(json, error: nil, token: token)
+                        case .Failure(let error):
+                            self.postRequestHandler(nil, error: error, token: token)
+                        }
+                    })
+                
+                    
+//                    .responseJSON { (request, response, result ) -> Void in
+//                        self.postRequestHandler(result.value, error: result.error, token: token)
+//                }
             }
-        }
-        
+        })
     }
     
     // MARK: - Private helper methods
@@ -156,8 +165,13 @@ class OAuth2Client : NSObject {
             url, 
             parameters: parameters,
             encoding: Alamofire.ParameterEncoding.URL)
-            .responseJSON { (request, response, result ) -> Void in
-                self.postRequestHandler(result.value, error: result.error, token: newToken)
+            .responseJSON { (response) -> Void in
+                switch response.result {
+                case .Success(let json):
+                    self.postRequestHandler(json, error: nil, token: newToken)
+                case .Failure(let error):
+                    self.postRequestHandler(nil, error: error, token: newToken)
+                }
         }
     }
     

@@ -54,8 +54,8 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // TO alter if more parameters neede
-        let url:String! = self.oauth2Settings.authorizeURL + "?response_type=code&client_id=" + self.oauth2Settings.clientID + "&state=" + expectedState + "&redirect_uri=" + self.oauth2Settings.redirectURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())! + "&scope=" + self.oauth2Settings.scope
+        // TO alter if more parameters needed
+        let url:String! = self.oauth2Settings.authorizeURL + "?response_type=code&client_id=" + self.oauth2Settings.clientID + "&redirect_uri=" + self.oauth2Settings.redirectURL.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())! + "&scope=" + self.oauth2Settings.scope + "&state=" + expectedState
         let urlRequest : NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
         
         self.webView!.loadRequest(urlRequest)
@@ -70,7 +70,6 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
         let url : NSString = request.URL!.absoluteString
-        print("===>>> \(url)")
         self.isRetrievingAuthCode = url.hasPrefix(self.oauth2Settings.redirectURL)
         
         if (self.isRetrievingAuthCode!) {

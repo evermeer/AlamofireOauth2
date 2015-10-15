@@ -18,9 +18,13 @@ class ViewController: UIViewController {
         UsingOauth2(wordpressOauth2Settings, performWithToken: { token in
             WordPressRequestConvertible.OAuthToken = token
             Alamofire.request(WordPressRequestConvertible.Me())
-                .responseJSON(completionHandler: { (request, response, result) -> Void in
-                    self.result.text = "\(result.value)"
-                    print("JSON = \(result.value)")
+                .responseJSON(completionHandler: { (result) -> Void in
+                    if let data = result.data {
+                        let response = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        self.result.text = "\(response)"
+                        print("JSON = \(response)")
+                        
+                    }
                 })
         }, errorHandler: {
             print("Oauth2 failed")
@@ -32,15 +36,30 @@ class ViewController: UIViewController {
         UsingOauth2(googleOauth2Settings, performWithToken: { token in
             GoogleRequestConvertible.OAuthToken = token
             Alamofire.request(GoogleRequestConvertible.Me())
-                .responseJSON { (request, response, result ) -> Void in
-                    self.result.text = "\(result.value)"
-                    print("JSON = \(result.value)")
-            }
+            .responseJSON(completionHandler: { (result) -> Void in
+                if let data = result.data {
+                    let response = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    self.result.text = "\(response)"
+                    print("JSON = \(response)")
+
+                }
+                
+            })
         }, errorHandler: {
             print("Oauth2 failed")
         })
     }
+    
+    @IBAction func clearTokens(sender: AnyObject) {
+        Oauth2ClearTokensFromKeychain(wordpressOauth2Settings)
+        Oauth2ClearTokensFromKeychain(googleOauth2Settings)
+    }
 }
+
+//.responseObject { (result:Result<T>) -> Void in
+//    self.handleResponse(result, completionHandler: completionHandler)
+
+
 
 
 // Create your own clientID and clientSecret at https://developer.wordpress.com/docs/oauth2/
@@ -48,9 +67,9 @@ let wordpressOauth2Settings = Oauth2Settings(
     baseURL: "https://public-api.wordpress.com/rest/v1",
     authorizeURL: "https://public-api.wordpress.com/oauth2/authorize",
     tokenURL: "https://public-api.wordpress.com/oauth2/token",
-    redirectURL: "alamofireoauth2://wordpress/oauth_callback",
-    clientID: "????????????",
-    clientSecret: "????????????"
+    redirectURL: "http://evict.nl",
+    clientID: "41739",
+    clientSecret: "31eC5no1cKXH3RS8sKfjv9WEpHiyvl24jvx0iXXwqc4Dajhq9OeAgRDazVoHtKtq"
 )
 
 // Minimal Alamofire implementation. For more info see https://github.com/Alamofire/Alamofire#crud--authorization
@@ -85,7 +104,7 @@ let googleOauth2Settings = Oauth2Settings(
     authorizeURL: "https://accounts.google.com/o/oauth2/auth",
     tokenURL: "https://www.googleapis.com/oauth2/v3/token",
     redirectURL: "http://localhost",
-    clientID: "???????????????",
+    clientID: "618987844532-o5jrtm8hfl5vaehoa080nd3869o3uebu.apps.googleusercontent.com",
     clientSecret: "",
     scope: "profile"
 )

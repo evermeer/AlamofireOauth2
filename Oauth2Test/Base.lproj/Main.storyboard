@@ -18,15 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppf-Tp-qQQ">
-                                <rect key="frame" x="20" y="100" width="560" height="30"/>
-                                <state key="normal" title="Click to test Wordpress Oauth2">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startWordpressOauth2Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FVg-aT-RM4"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7Y-29-CHs">
                                 <rect key="frame" x="20" y="150" width="560" height="30"/>
                                 <state key="normal" title="Click to test Google Oauth2">
@@ -34,6 +25,15 @@
                                 </state>
                                 <connections>
                                     <action selector="startGoogleOauth2Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X2f-mO-ZIf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vau-Ru-yiZ">
+                                <rect key="frame" x="20" y="72" width="560" height="30"/>
+                                <state key="normal" title="Clear tokens">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearTokens:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ehg-pt-yTl"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgI-8u-UYM">
@@ -48,16 +48,25 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppf-Tp-qQQ">
+                                <rect key="frame" x="20" y="110" width="560" height="30"/>
+                                <state key="normal" title="Click to test Wordpress Oauth2">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startWordpressOauth2Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FVg-aT-RM4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="F7Y-29-CHs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="0Hz-81-zmJ"/>
-                            <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="80" id="9XP-sm-ucf"/>
+                            <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="90" id="9XP-sm-ucf"/>
                             <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9hC-sx-N7k"/>
                             <constraint firstItem="F7Y-29-CHs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="HTr-35-kNB"/>
                             <constraint firstItem="kgI-8u-UYM" firstAttribute="top" secondItem="F7Y-29-CHs" secondAttribute="bottom" constant="30" id="OWh-xX-2u0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kgI-8u-UYM" secondAttribute="bottom" constant="20" id="WSX-xl-bef"/>
-                            <constraint firstItem="F7Y-29-CHs" firstAttribute="top" secondItem="Ppf-Tp-qQQ" secondAttribute="bottom" constant="20" id="a8g-Q5-UuD"/>
+                            <constraint firstItem="F7Y-29-CHs" firstAttribute="top" secondItem="Ppf-Tp-qQQ" secondAttribute="bottom" constant="10" id="a8g-Q5-UuD"/>
                             <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aLr-Ld-Mdx"/>
                             <constraint firstItem="kgI-8u-UYM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gAY-zu-kxt"/>
                             <constraint firstItem="kgI-8u-UYM" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="uYh-d8-rFk"/>
