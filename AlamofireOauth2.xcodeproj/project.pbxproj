@@ -16,7 +16,7 @@
 		7FD256DA1B5708D700825BF1 /* Oauth2Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD256731B545EFA00825BF1 /* Oauth2Settings.swift */; };
 		7FD256DB1B5708DA00825BF1 /* OAuth2Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD256741B545EFA00825BF1 /* OAuth2Client.swift */; };
 		7FD256DC1B5708DD00825BF1 /* AlamofireOauth2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD2566C1B545AE400825BF1 /* AlamofireOauth2.swift */; };
-		EE507C92373B6FB967CE3E64 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F299D1B0DB87443E2E306D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		EE507C92373B6FB967CE3E64 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F299D1B0DB87443E2E306D /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
