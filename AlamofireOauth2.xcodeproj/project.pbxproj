@@ -22,7 +22,6 @@
 /* Begin PBXFileReference section */
 		67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7F0E6DC41BA8452C0071AC65 /* Oauth2Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Oauth2Test.entitlements; sourceTree = "<group>"; };
-		7F159DF81BA2F92400247CB1 /* circle.yml */ = {isa = PBXFileReference; lastKnownFileType = text; name = circle.yml; path = ../EVReflection/circle.yml; sourceTree = "<group>"; };
 		7F159DF91BA2F99500247CB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../EVReflection/EVReflection/.gitignore; sourceTree = "<group>"; };
 		7F159DFD1BA3057400247CB1 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		7F7CFCE61B5E740D00A42318 /* AlamofireOauth2.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AlamofireOauth2.podspec; sourceTree = "<group>"; };
@@ -61,7 +60,6 @@
 			children = (
 				7F159DF91BA2F99500247CB1 /* .gitignore */,
 				7F159DFD1BA3057400247CB1 /* .travis.yml */,
-				7F159DF81BA2F92400247CB1 /* circle.yml */,
 				7FD256701B545D6D00825BF1 /* Podfile */,
 				7F7CFCE61B5E740D00A42318 /* AlamofireOauth2.podspec */,
 				7F7CFCE71B5E740D00A42318 /* LICENSE */,
