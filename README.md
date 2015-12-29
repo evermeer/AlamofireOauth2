@@ -21,7 +21,7 @@ A Swift implementation of OAuth2 for iOS using Alamofire.
 
 #Intro
 
-This is a fork of the [SwiftOAuth2 repository from crousselle](https://github.com/crousselle/SwiftOAuth2)
+This library is heavilly inspired by the [SwiftOAuth2 repository from crousselle](https://github.com/crousselle/SwiftOAuth2)
 
 AlamofireOauth2 relies on [Alamofire](https://github.com/Alamofire/Alamofire), and [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess)
 
