@@ -76,6 +76,9 @@ class OAuth2Client : NSObject {
 //                        self.postRequestHandler(result.value, error: result.error, token: token)
 //                }
             }
+            else {
+                token(accessToken: nil)
+            }
         })
     }
     
