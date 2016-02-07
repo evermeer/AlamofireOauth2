@@ -79,7 +79,7 @@ and you are ready to go!
 Below is the sample code for a simple call to the WorPress API while authenticating using OAuth2
 
 
-```
+```Swift
 class ViewController: UIViewController {
 
     @IBOutlet weak var result: UITextView!
