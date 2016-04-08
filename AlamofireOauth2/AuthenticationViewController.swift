@@ -48,7 +48,7 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: Selector("cancelAction"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(cancelAction))
     }
     
     override func viewWillAppear(animated: Bool) {
