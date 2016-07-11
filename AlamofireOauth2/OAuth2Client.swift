@@ -61,7 +61,10 @@ class OAuth2Client : NSObject {
                 Alamofire.request(.POST,
                     url, 
                     parameters: parameters,
-                    encoding: Alamofire.ParameterEncoding.URL)
+                    encoding: Alamofire.ParameterEncoding.URL,
+                    headers: [
+                        "Accept": "application/json",
+                    ])
                     .responseJSON(completionHandler: { (response) -> Void in
                         switch response.result {
                         case .Success(let json):
@@ -167,7 +170,10 @@ class OAuth2Client : NSObject {
         Alamofire.request(.POST,
             url, 
             parameters: parameters,
-            encoding: Alamofire.ParameterEncoding.URL)
+            encoding: Alamofire.ParameterEncoding.URL,
+            headers: [
+                "Accept": "application/json",
+            ])
             .responseJSON { (response) -> Void in
                 switch response.result {
                 case .Success(let json):
