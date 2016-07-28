@@ -1,12 +1,11 @@
 # KeychainAccess
 [![CI Status](http://img.shields.io/travis/kishikawakatsumi/KeychainAccess.svg?style=flat)](https://travis-ci.org/kishikawakatsumi/KeychainAccess)
-[![Circle CI](https://circleci.com/gh/kishikawakatsumi/KeychainAccess.svg?style=shield)](https://circleci.com/gh/kishikawakatsumi/KeychainAccess)
 [![Coverage Status](https://coveralls.io/repos/kishikawakatsumi/KeychainAccess/badge.svg?branch=master&service=github)](https://coveralls.io/github/kishikawakatsumi/KeychainAccess?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Version](https://img.shields.io/cocoapods/v/KeychainAccess.svg?style=flat)](http://cocoadocs.org/docsets/KeychainAccess)
 [![Platform](https://img.shields.io/cocoapods/p/KeychainAccess.svg?style=flat)](http://cocoadocs.org/docsets/KeychainAccess)
 
-KeychainAccess is a simple Swift wrapper for Keychain that works on iOS and OS X. Makes using Keychain APIs exremely easy and much more palatable to use in Swift.
+KeychainAccess is a simple Swift wrapper for Keychain that works on iOS and OS X. Makes using Keychain APIs extremely easy and much more palatable to use in Swift.
 
 <img src="https://raw.githubusercontent.com/kishikawakatsumi/KeychainAccess/master/Screenshots/01.png" width="320px" />
 <img src="https://raw.githubusercontent.com/kishikawakatsumi/KeychainAccess/master/Screenshots/02.png" width="320px" />
@@ -20,8 +19,8 @@ KeychainAccess is a simple Swift wrapper for Keychain that works on iOS and OS X
 - [Support iCloud sharing](#icloud_sharing)
 - **[Support TouchID and Keychain integration (iOS 8+)](#touch_id_integration)**
 - **[Support Shared Web Credentials (iOS 8+)](#shared_web_credentials)**
-- Works on both iOS & OS X
-- watchOS and tvOS are supported
+- [Works on both iOS & OS X](#requirements)
+- [watchOS and tvOS are supported](#requirements)
 
 ## :book: Usage
 
@@ -160,7 +159,7 @@ do {
 }
 ```
 
-### :key: Label and Comment
+### :key: Set Label and Comment
 
 ```swift
 let keychain = Keychain(server: "https://github.com", protocolType: .HTTPS)
@@ -172,6 +171,49 @@ do {
 } catch let error {
     print("error: \(error)")
 }
+```
+
+### :key: Obtaining Other Attributes
+
+#### PersistentRef
+
+```swift
+let keychain = Keychain()
+let persistentRef = keychain[attributes: "kishikawakatsumi"].persistentRef
+...
+```
+
+#### Creation Date
+
+```swift
+let keychain = Keychain()
+let creationDate = keychain[attributes: "kishikawakatsumi"].creationDate
+...
+```
+
+#### All Attributes
+
+```swift
+let keychain = Keychain()
+do {
+    let attributes = try keychain.get("kishikawakatsumi") { $0 }
+    print(attributes.comment)
+    print(attributes.label)
+    print(attributes.creator)
+    ...
+} catch let error {
+    print("error: \(error)")
+}
+```
+
+##### subscripting
+
+```swift
+let keychain = Keychain()
+let attributes = keychain[attributes: "kishikawakatsumi"]
+print(attributes.comment)
+print(attributes.label)
+print(attributes.creator)
 ```
 
 ### :key: Configuration (Accessibility, Sharing, iCould Sync)
@@ -485,8 +527,13 @@ item: [authenticationType: Default, key: honeylemon, server: github.com, class: 
 
 ## Requirements
 
-iOS 7 or later
-OS X 10.9 or later
+|        | OS                               | Swift    |
+|--------|----------------------------------|----------|
+| **v1.1.x** | iOS 7+, OSX 10.9+                | 1.1      |
+| **v1.2.x** | iOS 7+, OSX 10.9+                | 1.2      |
+| **v2.0.x** | iOS 7+, OSX 10.9+, watchOS       | 2.0      |
+| **v2.1.x** | iOS 7+, OSX 10.9+, watchOS       | 2.0      |
+| **v2.2.x** | iOS 8+, OSX 10.9+, watchOS, tvOS | 2.0, 2.1 |
 
 ## Installation
 
@@ -506,6 +553,27 @@ KeychainAccess is available through [Carthage](https://github.com/Carthage/Carth
 it, simply add the following line to your Cartfile:
 
 `github "kishikawakatsumi/KeychainAccess"`
+
+### Swift Package Manager
+
+KeychainAccess is also available through [Swift Package Manager](https://github.com/apple/swift-package-manager/).
+First, create `Package.swift` that its package declaration includes:
+
+```swift
+import PackageDescription
+
+let package = Package(
+    dependencies: [
+        .Package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", majorVersion: 2)
+    ]
+)
+```
+
+Then, type
+
+```shell
+$ swift build
+```
 
 ### To manually add to your project
 

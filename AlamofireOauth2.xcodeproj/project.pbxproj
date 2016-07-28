@@ -16,11 +16,12 @@
 		7FD256DA1B5708D700825BF1 /* Oauth2Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD256731B545EFA00825BF1 /* Oauth2Settings.swift */; };
 		7FD256DB1B5708DA00825BF1 /* OAuth2Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD256741B545EFA00825BF1 /* OAuth2Client.swift */; };
 		7FD256DC1B5708DD00825BF1 /* AlamofireOauth2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD2566C1B545AE400825BF1 /* AlamofireOauth2.swift */; };
-		EE507C92373B6FB967CE3E64 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F299D1B0DB87443E2E306D /* Pods.framework */; };
+		8D9027D4D0D55CA55349585E /* Pods_Oauth2Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6808BE662E9EF65773DFB64C /* Pods_Oauth2Test.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4A5390262DCBCB4E006BBEBC /* Pods-Oauth2Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oauth2Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-Oauth2Test/Pods-Oauth2Test.release.xcconfig"; sourceTree = "<group>"; };
+		6808BE662E9EF65773DFB64C /* Pods_Oauth2Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oauth2Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0E6DC41BA8452C0071AC65 /* Oauth2Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Oauth2Test.entitlements; sourceTree = "<group>"; };
 		7F159DF91BA2F99500247CB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; name = .gitignore; path = ../EVReflection/EVReflection/.gitignore; sourceTree = "<group>"; };
 		7F159DFD1BA3057400247CB1 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
@@ -39,7 +40,7 @@
 		7FD256C01B5707E600825BF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7FD256C21B5707E600825BF1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7FD256C51B5707E600825BF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		EA53326E43518792397CC7FB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B6B0719A9F990121B9964980 /* Pods-Oauth2Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oauth2Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Oauth2Test/Pods-Oauth2Test.debug.xcconfig"; sourceTree = "<group>"; };
 		F2F299D1B0DB87443E2E306D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -48,13 +49,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE507C92373B6FB967CE3E64 /* Pods.framework in Frameworks */,
+				8D9027D4D0D55CA55349585E /* Pods_Oauth2Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		43283DDD72DA999F581DB41F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B6B0719A9F990121B9964980 /* Pods-Oauth2Test.debug.xcconfig */,
+				4A5390262DCBCB4E006BBEBC /* Pods-Oauth2Test.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7FD2563E1B545A9D00825BF1 = {
 			isa = PBXGroup;
 			children = (
@@ -68,7 +78,7 @@
 				7FD256B81B5707E600825BF1 /* Oauth2Test */,
 				7FD256481B545A9D00825BF1 /* Products */,
 				CF5DEB8B2ED21ECE362ACBBD /* Frameworks */,
-				B3140E192B2E23C13991935A /* Pods */,
+				43283DDD72DA999F581DB41F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,19 +123,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B3140E192B2E23C13991935A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				EA53326E43518792397CC7FB /* Pods.debug.xcconfig */,
-				67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		CF5DEB8B2ED21ECE362ACBBD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				F2F299D1B0DB87443E2E306D /* Pods.framework */,
+				6808BE662E9EF65773DFB64C /* Pods_Oauth2Test.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,12 +139,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FD256D31B5707E600825BF1 /* Build configuration list for PBXNativeTarget "Oauth2Test" */;
 			buildPhases = (
-				15629DE30F8A494A31499703 /* Check Pods Manifest.lock */,
+				D4917FAEF91B1A144672C79E /* 📦 Check Pods Manifest.lock */,
 				7FD256B31B5707E500825BF1 /* Sources */,
 				7FD256B41B5707E500825BF1 /* Frameworks */,
 				7FD256B51B5707E500825BF1 /* Resources */,
-				762D741C9CB212ACB126C5BA /* Embed Pods Frameworks */,
-				BAAA8E48EB93031958A8611A /* Copy Pods Resources */,
+				47EEF877B27A9C2AEB55F21E /* 📦 Embed Pods Frameworks */,
+				1916432447245778B703B134 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,49 +209,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		15629DE30F8A494A31499703 /* Check Pods Manifest.lock */ = {
+		1916432447245778B703B134 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Oauth2Test/Pods-Oauth2Test-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47EEF877B27A9C2AEB55F21E /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Oauth2Test/Pods-Oauth2Test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4917FAEF91B1A144672C79E /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		762D741C9CB212ACB126C5BA /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BAAA8E48EB93031958A8611A /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -376,7 +378,7 @@
 		};
 		7FD256D41B5707E600825BF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA53326E43518792397CC7FB /* Pods.debug.xcconfig */;
+			baseConfigurationReference = B6B0719A9F990121B9964980 /* Pods-Oauth2Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -395,7 +397,7 @@
 		};
 		7FD256D51B5707E600825BF1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 67A1D6A3E84EB476CFB8B6F7 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 4A5390262DCBCB4E006BBEBC /* Pods-Oauth2Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

@@ -1,13 +1,15 @@
 PODS:
-  - Alamofire (3.1.0)
-  - KeychainAccess (2.2.1)
+  - Alamofire (3.4.1)
+  - KeychainAccess (2.3.6)
 
 DEPENDENCIES:
   - Alamofire
   - KeychainAccess
 
 SPEC CHECKSUMS:
-  Alamofire: 415bd7f56197722978759078486689f7ef913dce
-  KeychainAccess: 3b13c8264b5985dbaeaaf019a7941a912b5690c2
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  KeychainAccess: 7f10e2ef998ddf954a64d5d608be08677774684d
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: b7fdf6be20c3b547fa117597208a5f748b918254
+
+COCOAPODS: 1.0.0
