@@ -8,8 +8,8 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
     
     var webView: UIWebView?
     
-    var successCallback : ((code:String)-> Void)?
-    var failureCallback : ((error:NSError) -> Void)?
+    var successCallback : ((code: String)-> Void)?
+    var failureCallback : ((error: NSError) -> Void)?
 
     var isRetrievingAuthCode : Bool? = false
 
@@ -69,11 +69,11 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
-        let url : NSString = request.URL!.absoluteString
+        let url : String = request.URL?.absoluteString ?? ""
         self.isRetrievingAuthCode = url.hasPrefix(self.oauth2Settings.redirectURL)
         
         if (self.isRetrievingAuthCode!) {
-            if(url.rangeOfString("error").location != NSNotFound) {
+            if url.containsString("error") {
                 let error:NSError = NSError(domain:"CROAuth2UnknownErrorDomain", code:0, userInfo: nil)
                 self.failureCallback!(error:error)
             } else {
@@ -96,9 +96,10 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
             
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        if (!self.isRetrievingAuthCode!) {
-            self.failureCallback!(error: error ?? NSError(domain: "Could not retreive auth code", code: 1, userInfo: nil))
+    
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
+        if self.isRetrievingAuthCode == false {
+            self.failureCallback!(error: error)
         }
     }
         
