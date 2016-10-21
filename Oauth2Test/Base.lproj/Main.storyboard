@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,59 +15,58 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F7Y-29-CHs">
-                                <rect key="frame" x="20" y="150" width="560" height="30"/>
                                 <state key="normal" title="Click to test Google Oauth2">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="startGoogleOauth2Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X2f-mO-ZIf"/>
+                                    <action selector="startGoogleOauth2TestWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bXn-pw-hCk"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vau-Ru-yiZ">
-                                <rect key="frame" x="20" y="72" width="560" height="30"/>
+                                <frame key="frameInset" minX="20" minY="72" width="560" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Clear tokens">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="clearTokens:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ehg-pt-yTl"/>
+                                    <action selector="clearTokensWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JZn-uD-1UB"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgI-8u-UYM">
-                                <rect key="frame" x="20" y="210" width="560" height="370"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Go to ViewController.swift and  configure the Oauth2Settings" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmv-jn-mbX">
-                                <rect key="frame" x="20" y="20" width="279" height="59"/>
+                                <frame key="frameInset" minX="20" minY="20" width="279" height="59"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ppf-Tp-qQQ">
-                                <rect key="frame" x="20" y="110" width="560" height="30"/>
                                 <state key="normal" title="Click to test Wordpress Oauth2">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="startWordpressOauth2Test:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FVg-aT-RM4"/>
+                                    <action selector="startWordpressOauth2TestWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OhI-o8-dyY"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="F7Y-29-CHs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="0Hz-81-zmJ"/>
+                            <constraint firstItem="F7Y-29-CHs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="221" id="0Hz-81-zmJ"/>
                             <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="90" id="9XP-sm-ucf"/>
-                            <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="9hC-sx-N7k"/>
-                            <constraint firstItem="F7Y-29-CHs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="HTr-35-kNB"/>
+                            <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="221" id="9hC-sx-N7k"/>
+                            <constraint firstItem="F7Y-29-CHs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="HTr-35-kNB"/>
                             <constraint firstItem="kgI-8u-UYM" firstAttribute="top" secondItem="F7Y-29-CHs" secondAttribute="bottom" constant="30" id="OWh-xX-2u0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kgI-8u-UYM" secondAttribute="bottom" constant="20" id="WSX-xl-bef"/>
                             <constraint firstItem="F7Y-29-CHs" firstAttribute="top" secondItem="Ppf-Tp-qQQ" secondAttribute="bottom" constant="10" id="a8g-Q5-UuD"/>
-                            <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="aLr-Ld-Mdx"/>
+                            <constraint firstItem="Ppf-Tp-qQQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="aLr-Ld-Mdx"/>
                             <constraint firstItem="kgI-8u-UYM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="gAY-zu-kxt"/>
                             <constraint firstItem="kgI-8u-UYM" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="uYh-d8-rFk"/>
                         </constraints>

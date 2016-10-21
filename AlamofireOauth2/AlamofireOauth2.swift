@@ -3,18 +3,18 @@ import Foundation
 import UIKit
 import KeychainAccess
 
-public func UsingOauth2(settings: Oauth2Settings?, performWithToken: (token: String) -> (), errorHandler: () -> () ) {
+public func UsingOauth2(settings: Oauth2Settings?, performWithToken: @escaping (_ token: String) -> (),  errorHandler: @escaping () -> () )  {
     if settings == nil {
         print("ERROR: No Oauth2 settings provided")
         errorHandler()
         return
     }
     let client = OAuth2Client(outh2Settings: settings!)
-    client.retrieveAuthToken({ (authToken) -> Void in
+    client.retrieveAuthToken(token: { (authToken) -> Void in
         if let optionnalAuthToken = authToken {
             if authToken != "" {
                 print("Received access token " + optionnalAuthToken)
-                performWithToken(token: optionnalAuthToken)
+                performWithToken(optionnalAuthToken)
                 return                
             }
         }

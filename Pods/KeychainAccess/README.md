@@ -1,9 +1,9 @@
 # KeychainAccess
-[![CI Status](http://img.shields.io/travis/kishikawakatsumi/KeychainAccess.svg?style=flat)](https://travis-ci.org/kishikawakatsumi/KeychainAccess)
-[![Coverage Status](https://coveralls.io/repos/kishikawakatsumi/KeychainAccess/badge.svg?branch=master&service=github)](https://coveralls.io/github/kishikawakatsumi/KeychainAccess?branch=master)
+[![CI Status](http://img.shields.io/travis/kishikawakatsumi/KeychainAccess.svg)](https://travis-ci.org/kishikawakatsumi/KeychainAccess)
+[![Coverage Status](https://img.shields.io/coveralls/kishikawakatsumi/KeychainAccess.svg)](https://coveralls.io/github/kishikawakatsumi/KeychainAccess?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Version](https://img.shields.io/cocoapods/v/KeychainAccess.svg?style=flat)](http://cocoadocs.org/docsets/KeychainAccess)
-[![Platform](https://img.shields.io/cocoapods/p/KeychainAccess.svg?style=flat)](http://cocoadocs.org/docsets/KeychainAccess)
+[![Version](https://img.shields.io/cocoapods/v/KeychainAccess.svg)](http://cocoadocs.org/docsets/KeychainAccess)
+[![Platform](https://img.shields.io/cocoapods/p/KeychainAccess.svg)](http://cocoadocs.org/docsets/KeychainAccess)
 
 KeychainAccess is a simple Swift wrapper for Keychain that works on iOS and OS X. Makes using Keychain APIs extremely easy and much more palatable to use in Swift.
 
@@ -21,6 +21,7 @@ KeychainAccess is a simple Swift wrapper for Keychain that works on iOS and OS X
 - **[Support Shared Web Credentials (iOS 8+)](#shared_web_credentials)**
 - [Works on both iOS & OS X](#requirements)
 - [watchOS and tvOS are supported](#requirements)
+- **[Swift 3 & Swift 2.3 compatible](#requirements)**
 
 ## :book: Usage
 
@@ -216,7 +217,7 @@ print(attributes.label)
 print(attributes.creator)
 ```
 
-### :key: Configuration (Accessibility, Sharing, iCould Sync)
+### :key: Configuration (Accessibility, Sharing, iCloud Sync)
 
 **Provides fluent interfaces**
 
@@ -224,7 +225,7 @@ print(attributes.creator)
 let keychain = Keychain(service: "com.example.github-token")
     .label("github.com (kishikawakatsumi)")
     .synchronizable(true)
-    .accessibility(.AfterFirstUnlock)
+    .accessibility(.afterFirstUnlock)
 ```
 
 #### <a name="accessibility"> Accessibility
@@ -253,7 +254,7 @@ let keychain = Keychain(service: "com.example.github-token")
 
 do {
     try keychain
-        .accessibility(.AfterFirstUnlock)
+        .accessibility(.afterFirstUnlock)
         .set("01234567-89ab-cdef-0123-456789abcdef", key: "kishikawakatsumi")
 } catch let error {
     print("error: \(error)")
@@ -278,7 +279,7 @@ let keychain = Keychain(service: "com.example.github-token")
 
 do {
     try keychain
-        .accessibility(.WhenUnlocked)
+        .accessibility(.whenUnlocked)
         .set("01234567-89ab-cdef-0123-456789abcdef", key: "kishikawakatsumi")
 } catch let error {
     print("error: \(error)")
@@ -353,11 +354,11 @@ If the item not protected, the `authenticationPrompt` parameter just be ignored.
 ```swift
 let keychain = Keychain(service: "com.example.github-token")
 
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
     do {
         // Should be the secret invalidated when passcode is removed? If not then use `.WhenUnlocked`
         try keychain
-            .accessibility(.WhenPasscodeSetThisDeviceOnly, authenticationPolicy: .UserPresence)
+            .accessibility(.whenPasscodeSetThisDeviceOnly, authenticationPolicy: .userPresence)
             .authenticationPrompt("Authenticate to update your access token")
             .set("01234567-89ab-cdef-0123-456789abcdef", key: "kishikawakatsumi")
     } catch let error {
@@ -375,7 +376,7 @@ If the item not protected, the `authenticationPrompt` parameter just be ignored.
 ```swift
 let keychain = Keychain(service: "com.example.github-token")
 
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
     do {
         let password = try keychain
             .authenticationPrompt("Authenticate to login to server")
@@ -492,7 +493,7 @@ print("\(keychain)")
 #### Obtaining all stored keys
 
 ```swift
-let keychain = Keychain(server: "https://github.com", protocolType: .HTTPS)
+let keychain = Keychain(server: "https://github.com", protocolType: .https)
 
 let keys = keychain.allKeys()
 for key in keys {
@@ -510,7 +511,7 @@ key: honeylemon
 #### Obtaining all stored items
 
 ```swift
-let keychain = Keychain(server: "https://github.com", protocolType: .HTTPS)
+let keychain = Keychain(server: "https://github.com", protocolType: .https)
 
 let items = keychain.allItems()
 for item in items {
@@ -527,13 +528,16 @@ item: [authenticationType: Default, key: honeylemon, server: github.com, class: 
 
 ## Requirements
 
-|        | OS                               | Swift    |
-|--------|----------------------------------|----------|
-| **v1.1.x** | iOS 7+, OSX 10.9+                | 1.1      |
-| **v1.2.x** | iOS 7+, OSX 10.9+                | 1.2      |
-| **v2.0.x** | iOS 7+, OSX 10.9+, watchOS       | 2.0      |
-| **v2.1.x** | iOS 7+, OSX 10.9+, watchOS       | 2.0      |
-| **v2.2.x** | iOS 8+, OSX 10.9+, watchOS, tvOS | 2.0, 2.1 |
+|            | OS                                     | Swift         |
+|------------|----------------------------------------|---------------|
+| **v1.1.x** | iOS 7+, OSX 10.9+                      | 1.1           |
+| **v1.2.x** | iOS 7+, OSX 10.9+                      | 1.2           |
+| **v2.0.x** | iOS 7+, OSX 10.9+, watchOS 2+          | 2.0           |
+| **v2.1.x** | iOS 7+, OSX 10.9+, watchOS 2+          | 2.0           |
+| **v2.2.x** | iOS 8+, OSX 10.9+, watchOS 2+, tvOS 9+ | 2.0, 2.1      |
+| **v2.3.x** | iOS 8+, OSX 10.9+, watchOS 2+, tvOS 9+ | 2.0, 2.1, 2.2 |
+| **v2.4.x** | iOS 8+, OSX 10.9+, watchOS 2+, tvOS 9+ | 2.2, 2.3      |
+| **v3.x**   | iOS 8+, OSX 10.9+, watchOS 2+, tvOS 9+ | 3.0           |
 
 ## Installation
 

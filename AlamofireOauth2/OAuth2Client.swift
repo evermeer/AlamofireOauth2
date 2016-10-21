@@ -20,34 +20,34 @@ class OAuth2Client : NSObject {
         self.keychain = Keychain(service: outh2Settings.baseURL)
     }
     
-    private func postRequestHandler(jsonResponse:AnyObject?, error:ErrorType?, token:((accessToken:String?) -> Void)) -> Void {
+    private func postRequestHandler(jsonResponse:Any?, error:Error?, token:((_ accessToken:String?) -> Void)) -> Void {
         if let err = error {
             print(err)
-            token(accessToken: nil)
+            token(nil)
         } else {
-            let accessToken:String = self.retrieveAccessTokenFromJSONResponse(jsonResponse!)
-            token(accessToken: accessToken)
+            let accessToken:String = self.retrieveAccessTokenFromJSONResponse(jsonResponse: jsonResponse!)
+            token(accessToken)
         }
     }
     
-    func retrieveAuthToken(token:((accessToken:String?) -> Void)) -> Void {
+    func retrieveAuthToken(token:@escaping ((_ accessToken:String?) -> Void)) -> Void {
         
         // We found a token in the keychain, we need to check if it is not expired            
         if let optionalStoredAccessToken:String = self.retrieveAccessTokenFromKeychain() {
             if (self.isAccessTokenExpired()) {
                 if let refreshToken = self.retrieveRefreshTokenFromKeychain() {
-                    self.refreshToken(refreshToken, newToken: token)
+                    self.refreshToken(refreshToken: refreshToken, newToken: token)
                     return
                 }
                 print("WARNING: Access token is expired but no refresh token in keychain!")
             } else {
-                token(accessToken: optionalStoredAccessToken)
+                token(optionalStoredAccessToken)
                 return
             }
         }
         
-        // First, let's retrieve the autorization_code by login the user in.
-        self.retrieveAuthorizationCode ({ (authorizationCode) -> Void in
+        // First, let's retrieve the autorization_code by loging the user in.
+        self.retrieveAuthorizationCode (authoCode: { (authorizationCode) -> Void in
             if let optionalAuthCode = authorizationCode {
                 // We have the authorization_code, we now need to exchange it for the accessToken by doind a POST request
                 let url:String = self.oauth2Settings.tokenURL
@@ -58,29 +58,20 @@ class OAuth2Client : NSObject {
                     "redirect_uri" : self.oauth2Settings.redirectURL,
                     "code" : optionalAuthCode]
                 
-                Alamofire.request(.POST,
-                    url, 
-                    parameters: parameters,
-                    encoding: Alamofire.ParameterEncoding.URL,
-                    headers: [
-                        "Accept": "application/json",
+                Alamofire.request(url, method: .post, parameters: parameters, headers: [
+                    "Accept": "application/json",
                     ])
                     .responseJSON(completionHandler: { (response) -> Void in
                         switch response.result {
-                        case .Success(let json):
-                            self.postRequestHandler(json, error: nil, token: token)
-                        case .Failure(let error):
-                            self.postRequestHandler(nil, error: error, token: token)
+                        case .success(let json):
+                            self.postRequestHandler(jsonResponse: json, error: nil, token: token)
+                        case .failure(let error):
+                            self.postRequestHandler(jsonResponse: nil, error: error, token: token)
                         }
                     })
-                
-                    
-//                    .responseJSON { (request, response, result ) -> Void in
-//                        self.postRequestHandler(result.value, error: result.error, token: token)
-//                }
             }
             else {
-                token(accessToken: nil)
+                token(nil)
             }
         })
     }
@@ -101,22 +92,22 @@ class OAuth2Client : NSObject {
     }
 
     // Retrieves the autorization code by presenting a webView that will let the user login
-    private func retrieveAuthorizationCode(authoCode:((authorizationCode:String?) -> Void)) -> Void{
+    private func retrieveAuthorizationCode(authoCode:@escaping ((_ authorizationCode:String?) -> Void)) -> Void{
         
         func success(code:String) -> Void {
-            activeController.dismissViewControllerAnimated(true, completion: nil)
-            authoCode(authorizationCode:code)
+            activeController.dismiss(animated: true, completion: nil)
+            authoCode(code)
         }
         
-        func failure(error:NSError) -> Void {
-            activeController.dismissViewControllerAnimated(true, completion: nil)
-            authoCode(authorizationCode:nil)
+        func failure(error:Error) -> Void {
+            activeController.dismiss(animated: true, completion: nil)
+            authoCode(nil)
         }
         
         let authenticationViewController:AuthenticationViewController = AuthenticationViewController(oauth2Settings: oauth2Settings, successCallback:success, failureCallback:failure)
         let navigationController:UINavigationController = UINavigationController(rootViewController: authenticationViewController)
         
-        activeController.presentViewController(navigationController, animated:true, completion:nil)
+        activeController.present(navigationController, animated:true, completion:nil)
     }
     
     
@@ -125,16 +116,16 @@ class OAuth2Client : NSObject {
 
         var isTokenExpired: Bool = false
         
-        let optionalExpiresIn:NSString? = keychain[kOAuth2ExpiresInService]
+        let optionalExpiresIn:NSString? = keychain[kOAuth2ExpiresInService] as NSString?
         
         if let expiresInValue = optionalExpiresIn {
             isTokenExpired = true
-            let expiresTimeInterval:NSTimeInterval = expiresInValue.doubleValue
+            let expiresTimeInterval:TimeInterval = expiresInValue.doubleValue
             
-            let optionalCreationDate:NSString? = keychain[kOAuth2CreationDateService]
+            let optionalCreationDate:NSString? = keychain[kOAuth2CreationDateService] as NSString?
             
             if let creationDate = optionalCreationDate {
-                let creationTimeInterval:NSTimeInterval = creationDate.doubleValue
+                let creationTimeInterval:TimeInterval = creationDate.doubleValue
                 
                 // need to refresh the token 
                 if (NSDate().timeIntervalSince1970 < creationTimeInterval + expiresTimeInterval) {
@@ -155,7 +146,7 @@ class OAuth2Client : NSObject {
     }
     
     // Request a new access token with our refresh token
-    func refreshToken(refreshToken:String, newToken:((accessToken:String?) -> Void)) -> Void {
+    func refreshToken(refreshToken:String, newToken:@escaping ((_ accessToken:String?) -> Void)) -> Void {
         
         print("Need to refresh the token with refreshToken : " + refreshToken)
         
@@ -167,25 +158,21 @@ class OAuth2Client : NSObject {
             "redirect_uri" : self.oauth2Settings.redirectURL,
             "refresh_token" : refreshToken]
 
-        Alamofire.request(.POST,
-            url, 
-            parameters: parameters,
-            encoding: Alamofire.ParameterEncoding.URL,
-            headers: [
-                "Accept": "application/json",
+        Alamofire.request(url, method: .post, parameters: parameters, headers: [
+            "Accept": "application/json",
             ])
             .responseJSON { (response) -> Void in
                 switch response.result {
-                case .Success(let json):
-                    self.postRequestHandler(json, error: nil, token: newToken)
-                case .Failure(let error):
-                    self.postRequestHandler(nil, error: error, token: newToken)
+                case .success(let json):
+                    self.postRequestHandler(jsonResponse: json, error: nil, token: newToken)
+                case .failure(let error):
+                    self.postRequestHandler(jsonResponse: nil, error: error, token: newToken)
                 }
         }
     }
     
     // Extract the accessToken from the JSON response that the authentication server returned
-    private func retrieveAccessTokenFromJSONResponse(jsonResponse:AnyObject?) -> String {
+    private func retrieveAccessTokenFromJSONResponse(jsonResponse:Any?) -> String {
 
         var result:String = String()
         
@@ -214,7 +201,7 @@ class OAuth2Client : NSObject {
                 keychain[kOAuth2ExpiresInService] = expiresIn.stringValue as String
             }
             
-            let date:NSTimeInterval = NSDate().timeIntervalSince1970
+            let date:TimeInterval = NSDate().timeIntervalSince1970
             keychain[kOAuth2CreationDateService] = NSString(format: "%f", date) as String
         }
         
@@ -225,24 +212,24 @@ class OAuth2Client : NSObject {
 }
 
 extension UIApplication {
-    class func topViewController(base: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
+    class func topViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         
         if let nav = base as? UINavigationController {
-            return topViewController(nav.visibleViewController)
+            return topViewController(base: nav.visibleViewController)
         }
         
         if let tab = base as? UITabBarController {
             let moreNavigationController = tab.moreNavigationController
             
-            if let top = moreNavigationController.topViewController where top.view.window != nil {
-                return topViewController(top)
+            if let top = moreNavigationController.topViewController , top.view.window != nil {
+                return topViewController(base: top)
             } else if let selected = tab.selectedViewController {
-                return topViewController(selected)
+                return topViewController(base: selected)
             }
         }
         
         if let presented = base?.presentedViewController {
-            return topViewController(presented)
+            return topViewController(base: presented)
         }
         
         return base

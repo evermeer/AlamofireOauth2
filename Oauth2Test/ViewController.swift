@@ -15,12 +15,12 @@ class ViewController: UIViewController {
     
     @IBAction func startWordpressOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(wordpressOauth2Settings, performWithToken: { token in
+        UsingOauth2(settings: wordpressOauth2Settings, performWithToken: { token in
             WordPressRequestConvertible.OAuthToken = token
             Alamofire.request(WordPressRequestConvertible.Me())
                 .responseJSON(completionHandler: { (result) -> Void in
                     if let data = result.data {
-                        let response = NSString(data: data, encoding: NSUTF8StringEncoding)
+                        let response = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
                         self.result.text = "\(response)"
                         print("JSON = \(response)")
                         
@@ -33,12 +33,12 @@ class ViewController: UIViewController {
 
     @IBAction func startGoogleOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(googleOauth2Settings, performWithToken: { token in
+        UsingOauth2(settings: googleOauth2Settings, performWithToken: { token in
             GoogleRequestConvertible.OAuthToken = token
             Alamofire.request(GoogleRequestConvertible.Me())
             .responseJSON(completionHandler: { (result) -> Void in
                 if let data = result.data {
-                    let response = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    let response = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
                     self.result.text = "\(response)"
                     print("JSON = \(response)")
 
@@ -51,8 +51,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clearTokens(sender: AnyObject) {
-        Oauth2ClearTokensFromKeychain(wordpressOauth2Settings)
-        Oauth2ClearTokensFromKeychain(googleOauth2Settings)
+        Oauth2ClearTokensFromKeychain(settings: wordpressOauth2Settings)
+        Oauth2ClearTokensFromKeychain(settings: googleOauth2Settings)
     }
 }
 
@@ -79,17 +79,16 @@ public enum WordPressRequestConvertible: URLRequestConvertible {
     
     case Me()
     
-    public var URLRequest: NSMutableURLRequest { get {
+    public func asURLRequest() throws -> URLRequest {
         let URL = NSURL(string: WordPressRequestConvertible.baseURLString!)!
-        let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent("/me"))
-        mutableURLRequest.HTTPMethod = "GET"
+        let mutableURLRequest = NSMutableURLRequest(url: URL.appendingPathComponent("/me")!)
+        mutableURLRequest.httpMethod = "GET"
         
         if let token = WordPressRequestConvertible.OAuthToken {
             mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        return mutableURLRequest
-        }
+        return mutableURLRequest as URLRequest
     }
 }
 
@@ -116,17 +115,15 @@ public enum GoogleRequestConvertible: URLRequestConvertible {
     
     case Me()
     
-    public var URLRequest: NSMutableURLRequest {
-        get  {
-            let URL = NSURL(string: GoogleRequestConvertible.baseURLString!)!
-            let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent("/people/me"))
-            mutableURLRequest.HTTPMethod = "GET"
-            
-            if let token = GoogleRequestConvertible.OAuthToken {
-                mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            }
-            
-            return mutableURLRequest
+    public func asURLRequest() throws -> URLRequest {
+        let URL = NSURL(string: GoogleRequestConvertible.baseURLString!)!
+        let mutableURLRequest = NSMutableURLRequest(url: URL.appendingPathComponent("/people/me")!)
+        mutableURLRequest.httpMethod = "GET"
+        
+        if let token = GoogleRequestConvertible.OAuthToken {
+            mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
+        
+        return mutableURLRequest as URLRequest
     }
 }

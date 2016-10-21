@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "AlamofireOauth2"
-s.version      = "1.2.1"
+s.version      = "1.3.0"
 s.summary      = "Oauth2 implementation using Alamofire"
 
 s.description  = "A Swift implementation of Oauth2 using Alamofire"
@@ -36,7 +36,7 @@ s.license      = { :type => "MIT", :file => "LICENSE" }
 #
 
 s.author    = "evermeer"
-s.social_media_url   = "http://twitter.com/evermeer"
+s.social_media_url   = "https://twitter.com/evermeer"
 
 # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 #
@@ -44,7 +44,7 @@ s.social_media_url   = "http://twitter.com/evermeer"
 #  the deployment target. You can optionally include the target after the platform.
 #
 
-s.platform     = :ios, "8.0"
+s.platform     = :ios, "9.0"
 
 # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 #
