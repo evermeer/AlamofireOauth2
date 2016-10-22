@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "AlamofireOauth2"
-s.version      = "1.3.0"
+s.version      = "2.0.1"
 s.summary      = "Oauth2 implementation using Alamofire"
 
 s.description  = "A Swift implementation of Oauth2 using Alamofire"
