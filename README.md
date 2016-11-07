@@ -76,7 +76,7 @@ pod install
 and you are ready to go!
 
 ## How to use the AlamofireOauth
-Below is the sample code for a simple call to the WorPress API while authenticating using OAuth2
+Below is the sample code for a simple call to the WordPress API while authenticating using OAuth2
 
 
 ```Swift
