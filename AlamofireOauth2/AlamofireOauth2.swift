@@ -11,10 +11,10 @@ public func UsingOauth2(_ settings: Oauth2Settings?, performWithToken: @escaping
     }
     let client = OAuth2Client(outh2Settings: settings!)
     client.retrieveAuthToken(token: { (authToken) -> Void in
-        if let optionnalAuthToken = authToken {
+        if let optionalAuthToken = authToken {
             if authToken != "" {
-                print("Received access token " + optionnalAuthToken)
-                performWithToken(optionnalAuthToken)
+                print("Received access token " + optionalAuthToken)
+                performWithToken(optionalAuthToken)
                 return                
             }
         }
