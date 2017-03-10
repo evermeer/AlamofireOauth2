@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     @IBAction func startWordpressOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(settings: wordpressOauth2Settings, performWithToken: { token in
+        UsingOauth2(wordpressOauth2Settings, performWithToken: { token in
             WordPressRequestConvertible.OAuthToken = token
             Alamofire.request(WordPressRequestConvertible.Me())
                 .responseJSON(completionHandler: { (result) -> Void in
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 
     @IBAction func startGoogleOauth2Test(sender: AnyObject) {
         self.result.text = ""
-        UsingOauth2(settings: googleOauth2Settings, performWithToken: { token in
+        UsingOauth2(googleOauth2Settings, performWithToken: { token in
             GoogleRequestConvertible.OAuthToken = token
             Alamofire.request(GoogleRequestConvertible.Me())
             .responseJSON(completionHandler: { (result) -> Void in
@@ -51,8 +51,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clearTokens(sender: AnyObject) {
-        Oauth2ClearTokensFromKeychain(settings: wordpressOauth2Settings)
-        Oauth2ClearTokensFromKeychain(settings: googleOauth2Settings)
+        Oauth2ClearTokensFromKeychain(wordpressOauth2Settings)
+        Oauth2ClearTokensFromKeychain(googleOauth2Settings)
     }
 }
 

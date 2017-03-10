@@ -57,7 +57,8 @@ class AuthenticationViewController : UIViewController, UIWebViewDelegate{
         // TO alter if more parameters needed
         let url:String! = self.oauth2Settings.authorizeURL + "?response_type=code&client_id=" + self.oauth2Settings.clientID + "&redirect_uri=" + self.oauth2Settings.redirectURL.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlHostAllowed)! + "&scope=" + self.oauth2Settings.scope + "&state=" + expectedState
         
-        let urlRequest : NSURLRequest = NSURLRequest(url: NSURL(string: url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)! as URL)
+        //.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let urlRequest : NSURLRequest = NSURLRequest(url: NSURL(string: url)! as URL)
         
         self.webView!.loadRequest(urlRequest as URLRequest)
     }
